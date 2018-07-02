@@ -77,13 +77,14 @@ var spotifySearch = function(inputArtist) {
               .then(function(response) {
         
                 // Log the queryURL
-                console.log(queryURL2);
+                
         
                 // Log the resulting object
                 console.log(response.tracks[0].preview_url);
 
                 
                 playerURL = response.tracks[0].preview_url
+                console.log(playerURL)
                 database.ref().push(playerURL)
                 var video = $('<video />', {
                   id: 'video',
