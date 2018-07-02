@@ -1,7 +1,9 @@
+var express = require('express');
 var request = require('request'); // "Request" library
 var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
+var app = express();
 
 var client_id = 'c4f58ae0638f47fab9c76ee584241fcb'; // Your client id
 var client_secret = '31233dfa2e3745dea4cdeef7b406324f'; // Your secret
@@ -26,6 +28,10 @@ app.get('/', function(req, res) {
     // ejs render automatically looks in the views folder
     res.render('index');
 });
+
+app.get('/main', function(req, res) {
+    res.render('main')
+})
 
 // * Generates a random string containing numbers and letters
 //  * @param  {number} length The length of the string
