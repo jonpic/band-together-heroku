@@ -10,10 +10,13 @@ var config = {
 
 firebase.initializeApp(config);
 
+console.log("in code")
 var database = firebase.database();
-
-var myToken = window.location.href.split("?code=")[1];
-var access_token = myToken
+var myHash = window.location.href.split("?code=")[1];
+console.log(myHash)
+var myToken = myHash.split("&state=")[0]
+console.log(myToken)
+var access_token = "BQBAyj8sZprUQToMX6_Mlc5XxL_JtTMYVwejqEWx9kiowgeFbt_OSF01WUTPNBkcl0wBcQYraaJGJZ1HsuNaNvY8giBg4u6hYcWDDKvSNzP09bZGCz_jXICEih48FN4jJ0vfIQvlSlkkFkdNVlwrpJC6HB58zZM"
 localStorage.setItem("token", myToken);
 
 console.log(myToken)
@@ -34,7 +37,7 @@ function searchBandsInTownEvents(events) {
   $.ajax({
     url: queryURL,
     method: "GET"
-  }).then(function(response) {
+  }).done(function(response) {
 
     // Printing the entire object to console
     //console.log(response);
