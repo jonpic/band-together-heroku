@@ -1,7 +1,3 @@
-
-
-var myToken = window.location.href.split("?code=")[1];
-console.log(myToken)
  // Initialize Firebase
 var config = {
   apiKey: "AIzaSyBFolyg1FbHvFgQo71r_nypLHaAnBQq_3A",
@@ -17,6 +13,9 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 var myToken = window.location.href.split("?code=")[1];
+var access_token = myToken
+localStorage.setItem("token", myToken);
+
 console.log(myToken)
 
 var clearShows = function() {
@@ -43,6 +42,61 @@ function searchBandsInTownEvents(events) {
     // Constructing HTML containing the artist information
   });
 }
+
+var spotifySearch = function(inputArtist) {
+  var spotQueryURL = "https://api.spotify.com/v1/search?q=" + inputArtist + "&type=artist&market=us&limit=1";
+  console.log(spotQueryURL + "q1")
+  console.log(access_token)
+
+      // Here we run our AJAX call to the OpenWeatherMap API
+      $.ajax({
+        url: spotQueryURL,
+        headers: {
+          'Authorization': 'Bearer ' + access_token
+        },
+        method: "GET"
+      })
+        // We store all of the retrieved data inside of an object called "response"
+        .then(function(response) {
+          console.log("made it")
+          // Log the queryURL
+          bandID = response.artists.items[0].id;
+          console.log(bandID + "band id")
+          
+          var spotQueryURL2 = "https://api.spotify.com/v1/artists/" + bandID + "/top-tracks?country=us";
+          console.log(spotQueryURL2 + "q2")
+          // Log the resulting object
+          $.ajax({
+              url: spotQueryURL2,
+              headers: {
+                'Authorization': 'Bearer ' + access_token
+              },
+              method: "GET"
+            })
+              // We store all of the retrieved data inside of an object called "response"
+              .then(function(response) {
+        
+                // Log the queryURL
+                console.log(queryURL2);
+        
+                // Log the resulting object
+                console.log(response.tracks[0].preview_url);
+
+                
+                playerURL = response.tracks[0].preview_url
+                database.ref().push(playerURL)
+                var video = $('<video />', {
+                  id: 'video',
+                  src: playerURL,
+                  type: 'video/mp4',
+                  controls: true
+              });
+              video.appendTo($("body"));
+                
+              });
+        });
+}
+
 
 function searchBandsInTown(artist) {
 
@@ -76,7 +130,7 @@ function searchBandsInTown(artist) {
       upcoming: response.upcoming_event_count
     };
     
-
+    
     
     database.ref("searches").push(recentSearch);
     
@@ -123,6 +177,7 @@ function searchBandsInTown(artist) {
   });
 }
 
+
 // Event handler for user clicking the select-artist button
 $("#find-shows").on("click", function(event) {
   // Preventing the button from trying to submit the form
@@ -134,6 +189,7 @@ $("#find-shows").on("click", function(event) {
 
   // Running the searchBandsInTown function (passing in the artist as an argument)
   searchBandsInTown(inputArtist);
+  spotifySearch(inputArtist)
 });
 
 $("#clear-shows").on("click", function(event) {
