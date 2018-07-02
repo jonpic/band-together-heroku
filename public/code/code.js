@@ -1,4 +1,8 @@
-  // Initialize Firebase
+
+
+var myToken = window.location.href.split("?code=")[1];
+console.log(myToken)
+ // Initialize Firebase
 var config = {
   apiKey: "AIzaSyBFolyg1FbHvFgQo71r_nypLHaAnBQq_3A",
   authDomain: "band-together-app.firebaseapp.com",
@@ -11,6 +15,9 @@ var config = {
 firebase.initializeApp(config);
 
 var database = firebase.database();
+
+var myToken = window.location.href.split("?code=")[1];
+console.log(myToken)
 
 var clearShows = function() {
   console.log("click")
@@ -121,6 +128,7 @@ $("#find-shows").on("click", function(event) {
   // Preventing the button from trying to submit the form
   event.preventDefault();
   // Storing the artist name
+ 
   
   var inputArtist = $("#artist-input").val().trim();
 

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="icon" type="image/png" href="assets/images/BTICON.png">
     <link rel="stylesheet" type="text/css" href="/css/animate.css">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 
       <!-- Moment.js Reference -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
@@ -54,7 +54,96 @@
       <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
       <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>
       <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+      
       <script type="text/javascript" src="/code/code.js"></script>
+
+      <script>
+          var myToken
+            (function() {
+              
+              /**
+               * Obtains parameters from the hash of the URL
+               * @return Object
+               */
+              function getHashParams() {
+                var hashParams = {};
+                var e, r = /([^&;=]+)=?([^&;]*)/g,
+                    q = window.location.hash.substring(1);
+                    
+                while ( e = r.exec(q)) {
+                   hashParams[e[1]] = decodeURIComponent(e[2]);
+                }
+                console.log(hashParams)
+                return hashParams;
+  
+              }
+      
+      
+              var params = getHashParams();
+              console.log(params)
+      
+              var access_token = params.access_token;
+              console.log(access_token)
+              var refresh_token = params.refresh_token,
+                  error = params.error;
+  
+                  myToken = access_token
+                  console.log(myToken)
+                  
+          
+              if (error) {
+                alert('There was an error during the authentication');
+              } else {
+                if (access_token) {
+                    console.log("here")
+                  console.log(access_token)
+                  // render oauth info
+                  oauthPlaceholder.innerHTML = oauthTemplate({
+                    access_token: access_token,
+                    refresh_token: refresh_token
+                  });
+      
+                  $.ajax({
+                      url: 'https://api.spotify.com/v1/me',
+                      headers: {
+                        'Authorization': 'Bearer ' + access_token
+                      },
+                      success: function(response) {
+                          console.log(header);
+                          console.log(response)
+                        userProfilePlaceholder.innerHTML = userProfileTemplate(response);
+      
+                        $('#login').hide();
+                        $('#loggedin').show();
+                      }
+                  });
+                } else {
+                    // render initial screen
+                    $('#login').show();
+                    $('#loggedin').hide();
+                }
+      
+                
+              }
+            })();
+            
+            $("#obtain-new-band").on("click", function(event) {
+                console.log(access_token)
+              var q = "kalmah";
+              var type = "artist";
+              var market = "us";
+              var limit = "1"
+              $.ajax({
+                      url: 'https://api.spotify.com/v1/search?q=' + q + '&type=' +type+ '&market=' + market + '&limit=' +limit,
+                      headers: {
+                        'Authorization': 'Bearer ' + myToken
+                      }
+      
+                      }).then(function(response){
+                        console.log(response)
+                      });
+                    });
+          </script>
 </body>
 </html>
 
