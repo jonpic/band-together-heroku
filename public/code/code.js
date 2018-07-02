@@ -16,7 +16,7 @@ var myHash = window.location.href.split("?code=")[1];
 console.log(myHash)
 var myToken = myHash.split("&state=")[0]
 console.log(myToken)
-var access_token = "BQBAyj8sZprUQToMX6_Mlc5XxL_JtTMYVwejqEWx9kiowgeFbt_OSF01WUTPNBkcl0wBcQYraaJGJZ1HsuNaNvY8giBg4u6hYcWDDKvSNzP09bZGCz_jXICEih48FN4jJ0vfIQvlSlkkFkdNVlwrpJC6HB58zZM"
+var access_token = "BQATFb40ilO9pc2spXNOIue_NHF7MsPqlHKuitd2Mj4uR4nFnXL68Jg5rn-dYRb9Re40K9kpTd-_HsfsXSU1Si7eiM4FqGLTXwBcgfpw_2igYpoUCEzob4GJc_ADuuGfGSePdKU1UG9PcG6GpEoPMpRpdDCxYKU"
 localStorage.setItem("token", myToken);
 
 console.log(myToken)
