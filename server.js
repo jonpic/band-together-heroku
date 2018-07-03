@@ -9,7 +9,7 @@ var myToken
 
 var client_id = 'c4f58ae0638f47fab9c76ee584241fcb'; // Your client id
 var client_secret = '31233dfa2e3745dea4cdeef7b406324f'; // Your secret
-var redirect_uri = 'http://localhost:8080/callback'
+//var redirect_uri = 'http://localhost:8080/callback'
 var redirect_uri = 'https://band-together-heroku.herokuapp.com/callback'; // Your redirect uri
 
 

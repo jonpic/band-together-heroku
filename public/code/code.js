@@ -15,9 +15,8 @@ var database = firebase.database();
 var access_token = localStorage.getItem("token")
 
 var clearShows = function() {
-  console.log("click")
-  console.log(database.ref("searches"))
   database.ref("searches").remove()
+  database.ref("player").remove()
 
 }
 //is the searchBandsInTownEvents function necessary? -carter
@@ -81,8 +80,7 @@ var spotifySearch = function(inputArtist) {
                 
                 playerURL = response.tracks[0].preview_url
                 console.log(playerURL)
-                database.ref("searches"[0]).push(playerURL)
-                console.log(database.ref("searches"))
+                database.ref("player").push(playerURL)
                 video = $('<video />', {
                   id: 'video',
                   src: playerURL,
@@ -111,18 +109,7 @@ function searchBandsInTown(artist) {
     // Printing the entire object to console
 
     // Constructing HTML containing the artist information
-    var mainArtistDiv = $("<div class='bg-dark' id='main-artist-div'>")
-    var mainArtistLink = $( ".main-artist-div" ).wrap( "<a href></a>" );
-
     
-
-    var artistName = $("<h1>").text(response.name);
-    var artistURL = $("<a>").attr("href", response.url).append(artistName);
-    var artistImage = $("<img>").attr("src", response.thumb_url);
-    
-    var upcomingEvents = $("<h2 id='main-img'>").text(response.upcoming_event_count + " upcoming events");
-    
-    var goToArtist = $("<a>").attr("href", response.url).text("See Tour Dates");
 
     //create object to push to firebase
     var recentSearch = {
@@ -135,16 +122,35 @@ function searchBandsInTown(artist) {
     
     
     database.ref("searches").push(recentSearch);
+    database.ref("current").update(recentSearch);
+
+    database.ref("current").on("value", function(childSnapshot) {
+      var currentArtist = Object.values(childSnapshot.val())
+      var mainArtistDiv = $("<div class='bg-dark' id='main-artist-div'>")
+      var mainArtistLink = $( ".main-artist-div" ).wrap( "<a href></a>" );
+
+    
+
+    var artistName = $("<h1>").text(currentArtist[1]);
+    var artistURL = $("<a>").attr("href", currentArtist[3]).append(artistName);
+    var artistImage = $("<img>").attr("src", currentArtist[0]);
+    
+    var upcomingEvents = $("<h2 id='main-img'>").text(currentArtist[2] + " upcoming events");
+    
+    var goToArtist = $("<a>").attr("href", currentArtist[3]).text("See Tour Dates");
+    $("#artist-container").empty();
+    $("#artist-container").append(mainArtistDiv);
+    $(mainArtistDiv).append(artistURL, artistImage, goToArtist);
+    $("#tour-date-holder").empty()
+    $("#tour-date-holder").append(upcomingEvents)
+        //console.log(childSnapshot.val()[0].name)
+      });
     
 
     
 
     //Empty the contents of the artist-div, append the new artist content
-    $("#artist-container").empty();
-    $("#artist-container").append(mainArtistDiv);
-    $(mainArtistDiv).append(artistURL, artistImage, goToArtist);
     
-    $("#tour-date-holder").append(upcomingEvents)
     
     
     
@@ -154,6 +160,7 @@ function searchBandsInTown(artist) {
             url: newQueryURL,
             method: "GET"
         }).then(function(newResponse){
+
             for (var i = 0; i < 5; i++){
                 
                 var eventDate = newResponse[i].datetime;
@@ -161,9 +168,22 @@ function searchBandsInTown(artist) {
                 eventDate = moment(eventDate).format("MMMM DD YYYY, h:mm a");
                 
                 var venue = newResponse[i].venue.name;
+                var dateVenue = {
+                  dbVenue : venue,
+                  dbDate : eventDate
+                }
+                console.log(newResponse)
+                
+                database.ref("current-dates").push(dateVenue)
 
-
+                
                 //console.log(newResponse[i].url)
+                database.ref("current-dates").on("value", function(childSnapshot) {
+                  var currentDates = Object.values(childSnapshot.val())
+                
+
+                
+                });
 
                 var goToArtist = $("<a>").attr("href", response.url).text("See Tour Dates");
 
@@ -175,7 +195,7 @@ function searchBandsInTown(artist) {
 
                 $("#tour-date-holder").append(upcomingVenues);
                 var ticketStatus = $("<h4>").text("tickets are " + newResponse[i].offers[0].status)
-                  $(mainArtistDiv).append(ticketStatus);
+                $("#tour-date-holder").append(ticketStatus);
                   
                 
 
@@ -207,15 +227,16 @@ $("#clear-shows").on("click", function(event) {
 })
 
 database.ref("searches").on("value", function(childSnapshot) {
-  console.log(childSnapshot.numChildren())
+  childSnapshot.numChildren()
   if (childSnapshot.numChildren() > 3) {
     console.log(childSnapshot)
-    //childSnapshot[2].remove()
+    //console.log(childSnapshot.val()[0].name)
   }
 
 //console.log(childSnapshot.val());
-console.log(Object.values(childSnapshot.val()), "populating")
+console.log(Object.values(childSnapshot.val()).length)
 console.log(Object.values(childSnapshot.val())[0].name)
+//console.log(childSnapshot.val()[0].name)
 recentSearchArray = Object.values(childSnapshot.val())
 console.log(recentSearchArray[0].name + " array working")
 
@@ -236,6 +257,9 @@ console.log(recentSearchArray[0].name + " array working")
 
   if (recentSearchArray.length > 0){
     
+    
+    
+    
     function avoidDuplicates(){
       var i=recentSearchArray.length-1;
       var bandA=recentSearchArray[i].name;
@@ -247,6 +271,7 @@ console.log(recentSearchArray[0].name + " array working")
       var recentImage = $("<img>").attr("src", recentSearchArray[i].image);
       var recentUpcoming =  $("<h2>").text(recentSearchArray[i].upcoming + " upcoming events");
       var recentSearchDiv = $("<div class='bg-dark' id='recent-search-div'>")
+      $("#search1").empty()
       $("#search1").append(recentSearchDiv);
       $(recentSearchDiv).append(recentName, recentURL, recentImage, recentUpcoming);
       for (var p=recentSearchArray.length-1; p>0; p--){
@@ -261,6 +286,7 @@ console.log(recentSearchArray[0].name + " array working")
           var recentImage = $("<img>").attr("src", recentSearchArray[p].image);
           var recentUpcoming =  $("<h2>").text(recentSearchArray[p].upcoming + " upcoming events");
           var recentSearchDiv = $("<div class='bg-dark' id='recent-search-div'>")
+          $("#search2").empty()
           $("#search2").append(recentSearchDiv);
           $(recentSearchDiv).append(recentName, recentURL, recentImage, recentUpcoming);
           
@@ -285,6 +311,7 @@ console.log(recentSearchArray[0].name + " array working")
           var recentImage = $("<img>").attr("src", recentSearchArray[t].image);
           var recentUpcoming =  $("<h2>").text(recentSearchArray[t].upcoming + " upcoming events");
           var recentSearchDiv = $("<div class='bg-dark' id='recent-search-div'>")
+          $("#search3").empty()
           $("#search3").append(recentSearchDiv);
           $(recentSearchDiv).append(recentName, recentURL, recentImage, recentUpcoming);
           t=0;
