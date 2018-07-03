@@ -79,17 +79,19 @@ var spotifySearch = function(inputArtist) {
 
                 
                 playerURL = response.tracks[0].preview_url
-                console.log(playerURL)
-                database.ref("player").push(playerURL)
-                video = $('<video />', {
+                console.log(playerURL + "here")
+                database.ref("player").set(playerURL)
+                database.ref("player").on("value", function(childSnapshot) {
+                var updatedPlayer = childSnapshot.val()
+                var video = $('<video />', {
                   id: 'video',
-                  src: playerURL,
+                  src: updatedPlayer,
                   type: 'video/mp4',
                   controls: true
               });
               $("#player-holder").empty()
               $("#player-holder").append(video)
-
+            });
               
                 
               });
@@ -153,7 +155,7 @@ function searchBandsInTown(artist) {
     
     
     
-    
+    // Carter starting here
     if (response.upcoming_event_count > 0) {
         var newQueryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=band_together";
         $.ajax({
@@ -205,6 +207,8 @@ function searchBandsInTown(artist) {
     }
   });
 }
+
+// ----------------------------- //
 
 
 // Event handler for user clicking the select-artist button
