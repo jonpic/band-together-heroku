@@ -12,14 +12,7 @@ firebase.initializeApp(config);
 
 console.log("in code")
 var database = firebase.database();
-var myHash = window.location.href.split("?code=")[1];
-console.log(myHash)
-var myToken = myHash.split("&state=")[0]
-console.log(myToken)
-var access_token = "BQBHUDvVqApwBkClvc3n9Po2xRKmNDIR2573QoOpmyIA5-91-tsZG1R54-3EmvGLgciHq8j8N8kTs9eSFDm-duucFHeMZYFD6s0Tt3LFfHKbNa0MmGA9PRP_mPNje2uz828WdHhxBLnjpiVWH1eg9osLjoFZwNs"
-localStorage.setItem("token", myToken);
-var video
-console.log(myToken)
+var access_token = localStorage.getItem("token")
 
 var clearShows = function() {
   console.log("click")
@@ -202,6 +195,7 @@ $("#find-shows").on("click", function(event) {
  
   
   var inputArtist = $("#artist-input").val().trim();
+  $("#artist-input").val("")
 
   // Running the searchBandsInTown function (passing in the artist as an argument)
   searchBandsInTown(inputArtist);
