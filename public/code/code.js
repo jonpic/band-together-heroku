@@ -16,9 +16,9 @@ var myHash = window.location.href.split("?code=")[1];
 console.log(myHash)
 var myToken = myHash.split("&state=")[0]
 console.log(myToken)
-var access_token = "BQAamjue94LyB21aQTY1nPLUe_h7_aO6Q8hLEF62j9sIU9tuyhFtpByfGMnVdwrDmnkB7eh7qWe_U-bWZ-cisvTmzWjOsRceIub5q_K__wqaQBko5QRkzcsz8-RvNnQJ6JL7kYfiH6YT4tWyghqExW7JB8v257Y"
+var access_token = "BQACC3aLia1lJifNSyrD9weskKVgk_VBn1pt-79N2abHE3X4CCnhTFGewDkwP344xRSTvZDOMd0BQdhIE3fujTDeEq1OA9CpvppQBWvCHsjgQMFh3znzxCjoFRARZ5oo-"
 localStorage.setItem("token", myToken);
-
+var video
 console.log(myToken)
 
 var clearShows = function() {
@@ -88,14 +88,15 @@ var spotifySearch = function(inputArtist) {
                 
                 playerURL = response.tracks[0].preview_url
                 console.log(playerURL)
-                database.ref().push(playerURL)
-                var video = $('<video />', {
+                database.ref("searches"[0]).push(playerURL)
+                console.log(database.ref("searches"))
+                video = $('<video />', {
                   id: 'video',
                   src: playerURL,
                   type: 'video/mp4',
                   controls: true
               });
-              video.appendTo($("body"));
+              
                 
               });
         });
@@ -123,7 +124,8 @@ function searchBandsInTown(artist) {
     var artistURL = $("<a>").attr("href", response.url).append(artistName);
     var artistImage = $("<img>").attr("src", response.thumb_url);
     
-    var upcomingEvents = $("<h2>").text(response.upcoming_event_count + " upcoming events");
+    var upcomingEvents = $("<h2 id='main-img'>").text(response.upcoming_event_count + " upcoming events");
+    
     var goToArtist = $("<a>").attr("href", response.url).text("See Tour Dates");
 
     //create object to push to firebase
@@ -145,6 +147,9 @@ function searchBandsInTown(artist) {
     $("#main-container").empty();
     $("#main-container").append(mainArtistDiv);
     $(mainArtistDiv).append(artistURL, artistImage, upcomingEvents, goToArtist);
+    $("#main-img").prepend(video)
+    
+    
     
     if (response.upcoming_event_count > 0) {
         var newQueryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=band_together";
@@ -172,6 +177,9 @@ function searchBandsInTown(artist) {
                 
 
                 $(mainArtistDiv).append(upcomingVenues);
+                var ticketStatus = $("<h4>").text("tickets are " + newResponse[i].offers[0].status)
+                  $(mainArtistDiv).append(ticketStatus);
+                  
                 
 
 
