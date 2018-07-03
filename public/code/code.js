@@ -16,7 +16,7 @@ var myHash = window.location.href.split("?code=")[1];
 console.log(myHash)
 var myToken = myHash.split("&state=")[0]
 console.log(myToken)
-var access_token = "BQDgsAoY9kTL8VhhOzU4E1zGh8Ys0ofQql8SClKdmH4ZXMJSVDG6iD7LexY-n_dGbJg_Pmn-jynfdamK1SDfUKN3Y5Zx5lISUqz7a_nADY2XRosQbErB0M1ByZS7fi8GCs-OxGWIyWI5JMakUhYFzfftc35XF9w"
+var access_token = "BQBHUDvVqApwBkClvc3n9Po2xRKmNDIR2573QoOpmyIA5-91-tsZG1R54-3EmvGLgciHq8j8N8kTs9eSFDm-duucFHeMZYFD6s0Tt3LFfHKbNa0MmGA9PRP_mPNje2uz828WdHhxBLnjpiVWH1eg9osLjoFZwNs"
 localStorage.setItem("token", myToken);
 var video
 console.log(myToken)
@@ -96,6 +96,9 @@ var spotifySearch = function(inputArtist) {
                   type: 'video/mp4',
                   controls: true
               });
+              $("#player-holder").empty()
+              $("#player-holder").append(video)
+
               
                 
               });
@@ -144,10 +147,11 @@ function searchBandsInTown(artist) {
     
 
     //Empty the contents of the artist-div, append the new artist content
-    $("#main-container").empty();
-    $("#main-container").append(mainArtistDiv);
-    $(mainArtistDiv).append(artistURL, artistImage, upcomingEvents, goToArtist);
-    $("#main-img").prepend(video)
+    $("#artist-container").empty();
+    $("#artist-container").append(mainArtistDiv);
+    $(mainArtistDiv).append(artistURL, artistImage, goToArtist);
+    
+    $("#tour-date-holder").append(upcomingEvents)
     
     
     
@@ -176,7 +180,7 @@ function searchBandsInTown(artist) {
 
                 
 
-                $(mainArtistDiv).append(upcomingVenues);
+                $("#tour-date-holder").append(upcomingVenues);
                 var ticketStatus = $("<h4>").text("tickets are " + newResponse[i].offers[0].status)
                   $(mainArtistDiv).append(ticketStatus);
                   
@@ -249,7 +253,7 @@ console.log(recentSearchArray[0].name + " array working")
       var recentImage = $("<img>").attr("src", recentSearchArray[i].image);
       var recentUpcoming =  $("<h2>").text(recentSearchArray[i].upcoming + " upcoming events");
       var recentSearchDiv = $("<div class='bg-dark' id='recent-search-div'>")
-      $("#main-container").append(recentSearchDiv);
+      $("#search1").append(recentSearchDiv);
       $(recentSearchDiv).append(recentName, recentURL, recentImage, recentUpcoming);
       for (var p=recentSearchArray.length-1; p>0; p--){
         bandB=recentSearchArray[p].name;
@@ -263,7 +267,7 @@ console.log(recentSearchArray[0].name + " array working")
           var recentImage = $("<img>").attr("src", recentSearchArray[p].image);
           var recentUpcoming =  $("<h2>").text(recentSearchArray[p].upcoming + " upcoming events");
           var recentSearchDiv = $("<div class='bg-dark' id='recent-search-div'>")
-          $("#main-container").append(recentSearchDiv);
+          $("#search2").append(recentSearchDiv);
           $(recentSearchDiv).append(recentName, recentURL, recentImage, recentUpcoming);
           
           //set the variable to 0 to kick out of the search
@@ -287,7 +291,7 @@ console.log(recentSearchArray[0].name + " array working")
           var recentImage = $("<img>").attr("src", recentSearchArray[t].image);
           var recentUpcoming =  $("<h2>").text(recentSearchArray[t].upcoming + " upcoming events");
           var recentSearchDiv = $("<div class='bg-dark' id='recent-search-div'>")
-          $("#main-container").append(recentSearchDiv);
+          $("#search3").append(recentSearchDiv);
           $(recentSearchDiv).append(recentName, recentURL, recentImage, recentUpcoming);
           t=0;
         }

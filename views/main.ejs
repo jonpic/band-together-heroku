@@ -1,64 +1,251 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Band Together</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat+Subrayada|Montserrat:500|Roboto+Condensed" rel="stylesheet">   
+    <!-- Bootstrap CSS -->
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat+Subrayada|Montserrat:500|Roboto+Condensed" rel="stylesheet">   
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="icon" type="image/png" href="assets/images/BTICON.png">
-    <link rel="stylesheet" type="text/css" href="/css/animate.css">
+    <link rel="icon" type="image/png" href="image/BTICON.png">
+    <link rel="stylesheet" type="text/css" href="css/animate.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/stylesheet.css"> -->
 
-      <!-- Moment.js Reference -->
+    <!-- Moment.js Reference -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <title>Band Together</title>
 </head>
-
 <body>
-<nav class="navbar navbar-default">
-    <div class="container">
-<!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-        <a class="navbar-brand text-white" href="index.html">B/T</a>
-    </div> 
-        <span class="glyphicon glyphicon-user text-white" aria-hidden="false"></span>
-        <ul class="nav ml-auto" >
-           <a class="text-white" href="#">sign up</a>
-        </ul>
-    </div>
-</nav>
+<!-- nav nav nav -->
+<nav class="navbar navbar-expand-md navbar-dark  fixed-top navbar-default">
+        <a class="navbar-brand animate fadeInLeftBig" href="#home">Band/Together</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item ">
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
+              <div class="dropdown-menu" aria-labelledby="dropdown01">
+                <a class="dropdown-item" href="#sign-up">Sign Up</a>
+                <a class="dropdown-item" href="#chatbox">Chat</a>
+                <a class="dropdown-item" href="#b-3">Recent Searches</a>
+              </div>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Band Name" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
 
-<!--  logo and search bar -->
-<div class="container" id="main-container">
+
+<!-- fixed image landing page -->
+
+<div id="home" class="landing-txt">
+<div class="content">
+    <h1><div class="animated fadeInUp logo" data-stellar-background-ratio="0.5">Band / Together</div></h1>
+    <hr>
+    <h3> The Only Concert Going App You Need </h3>
+    <form>
+        <div class="input-group input-group-lg" id="search">
+            <input type="text"id="artist-input" class="form-control" placeholder="Band Name " aria-describedby="basic-addon2">
+        </div>
+        <button id="find-shows" type="submit" class="btn btn-default btn-lg animated bounceIn">Find Shows!</button>
+        <button id="clear-shows" type="button" class="btn btn-default btn-lg animated bounceIn">Clear Searches</button>
+    </form>
+</div>
+</div>
+<!-- <div class="hidden" id="hide" display="none"> -->
+<div class="padding main-cointainer b-1" >
+<div class="container">
     <div class="row">
-        <div class="col-lg-12">
-            <div id="content">
-                <h1><div class="animated fadeInUp">Band / Together</div></h1>
-                <h3> The Only Concert Going App You Need </h3>
-                <hr>
-                <form>
-                    <div class="input-group input-group-lg">
-                        <input type="text" class="form-control" placeholder="Band Name " aria-describedby="basic-addon2" id="artist-input">
-                    <!-- <span type="button" class="input-group-btn btn btn-default" id="basic-addon2">Go!</span> -->
-                    </div>
-                    <button id="find-shows" type="submit" class="btn btn-default btn-lg animated bounceIn">Find Shows!</button>
-                    <button id="clear-shows" type="button" class="btn btn-default btn-lg animated bounceIn">Clear Searches</button>
-                </form>
+        <div class="col-md-6 col-xs-3" >
+            <div id="artist-container">
+         <h2 class="animated fadeInLeftBig img"> Artist</h2>
+         <img class="artist-pic animated fadeInLeftBig" id="search1" src="placeholder.JPG">
+
+        </div>
+            <div class="col-sm-6 col=col-xs-3 text-center">
+                <h2 id"band-name"></h2>
+            
+                <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing
+            elit. Dicta rerum maiores laborum libero tempore delectus assumenda
+            nesciunt necessitatibus aut accusamus labore eum doloribus, soluta,
+            molestiae incidunt enim placeat hic aliquam!</p>
+                <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing
+            elit. Dicta rerum maiores laborum libero tempore delectus assumenda
+            nesciunt necessitatibus aut accusamus labore eum doloribus, soluta,
+            molestiae incidunt enim placeat hic aliquam!</p>
             </div>
         </div>
     </div>
+</div>
+</div>
 
-      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.js"></script>
-      <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>
-      <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-      
-      <script type="text/javascript" src="/code/code.js"></script>
+
+<div class="padding" id="player"> 
+     <h4>Listen</h4>
+        <div class="container">
+            <div id="player-holder" class="col-lg-3 col-md-3 col-sm-6" >
+              
+            </div>
+        </div>
+ </div>
+
+<div class="padding b-2">
+    <H1>UPCOMING SHOWS</H1>
+<div class="container" id="tourdates">
+    <div id="tour-date-holder" class="col-lg-3 col-md-3 col-sm-6">
+        
+    </div>
+    <table>
+        <th>
+
+        </th>
+    </table>
+    <div class="container">
+        <div class"col-xs-12">
+            <button class="btn" type="submit" id="tix">
+                Buy Tickets
+            </button>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="padding two" >
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <img src="" class="responsive">
+            
+        </div>
+        
+    </div>
+</div>    
+</div>
+
+<div id="fixed">
+</div>
+
+
+<div class="padding" id="b-3">
+    <div class="container">
+        <div class="row">
+        <h4>Recent Searches</h4>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="history" id="search1" src="">
+                </div>
+            </div>
+             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="history" id="search2" src="">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="history" id="search3" src="">
+                </div>
+            </div>
+     </div>
+</div>    
+</div>
+<div class="padding text-center"  >
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6" id="chatbox">
+                    <!-- <h2>CHAT BOX</h2> -->
+                    <section class="module">
+                            <header class="top-bar">
+                              <h5>B/T Chat</h5>
+                              <!-- likely some spans and stuff -->
+                            </header>
+                            <div id="convo">
+                            <ol class="conversation">
+                                <li class="self">
+                                    <div class="avatar">
+                                     <img src="">
+                                    </div>
+                                <div class="messages">
+                                    <p></p>
+                                        <time datetime="2009-11-13T20:00"></time>
+                                </div>
+                                </li>
+                                    <li class="other">
+                                            <div class="avatar">
+                                             <img src="">
+                                            </div>
+                                        <div class="messages">
+                                            <p></p>
+                                                <time datetime="2009-11-13T20:00"></time>
+                                        </div>
+                                    </li>    
+                                </div>
+                            </section>
+                </div>
+                <div class="col-sm-6 r">
+                    
+            </div>
+        </div>
+     </div>
+</div>
+<div class="text-center">
+<div class="" id="sign-up">
+    <div class="row">
+            <div id="userdata" class="col-lg-3 col-md-3 col-xs-12">
+                    <form id="userinfo">
+                        <div class="form-group">
+                                <label for="username">Name</label>
+                                <input type="password" class="form-control" id="examplename" placeholder="Kramer">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Email address</label>
+                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">Password</label>
+                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                          </form>
+
+            </div>
+    </div>
+</div>
+</div>
+
+<!-- <script>
+    var land= document.querySelector('#home')
+</script> -->
+
+
+    
+    <!-- <script src="lib/jquery.waypoints.min.js"></script> -->
+    
+    <!-- stellar -->
+    <script src="stellar/jquery.stellar.js"></script>
+    <script src="stellar/jquery.stellar.min.js"></script>
+    <!-- <script>
+         $.stellar();
+    </script> -->
+    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+  
+     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+     <!-- <script type="text/javascript" src="scroll.js"></script> -->
+     <script type="text/javascript" src="code/code.js"></script>
 
       <script>
-          var myToken
+          
             (function() {
               
               /**
