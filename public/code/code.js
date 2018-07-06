@@ -145,8 +145,41 @@ $(document).ready(function() {
       $("#artist-container").append(mainArtistDiv);
       $(mainArtistDiv).append(artistURL, artistImage, goToArtist);
       $("#tour-date-holder").empty()
-      $("#tour-date-holder").append(upcomingEvents)
-          //console.log(childSnapshot.val()[0].name)
+    $("#tour-date-holder").append(upcomingEvents)
+        //ensure that there are upcoming events to print
+        if (response.upcoming_event_count > 0) {
+          var newQueryURL = "https://rest.bandsintown.com/artists/" + currentArtist[1] + "/events?app_id=band_together";
+          $.ajax({
+              url: newQueryURL,
+              method: "GET"
+          }).then(function(newResponse){
+            //run this again to avoid duplication bug - events were continuously appended for some reason
+            $("#tour-date-holder").empty()
+            $("#tour-date-holder").append(upcomingEvents)
+            
+            
+              //print venue list
+              for (var i = 0; i < 5; i++){
+                  
+                  var eventDate = newResponse[i].datetime;                  
+                  eventDate = moment(eventDate).format("MMMM DD YYYY, h:mm a");
+                  
+                  var venue = newResponse[i].venue.name;                  
+                    
+                  var goToArtist = $("<a>").attr("href", newResponse.url).text("See Tour Dates");  
+                  
+                  var upcomingVenues = $("<a>").attr("href", newResponse[i].url).html("<h3>playing in " + newResponse[i].venue.city + " at the " + venue + " on " + eventDate);
+                  $("#tour-date-holder").append(upcomingVenues);
+                  
+                  var ticketStatus = $("<h4>").text("tickets are " + newResponse[i].offers[0].status)
+                  $("#tour-date-holder").append(ticketStatus);
+                    
+                  
+  
+  
+              }
+          })
+        }
         });
       
 
