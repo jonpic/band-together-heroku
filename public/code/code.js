@@ -312,7 +312,7 @@ $(document).ready(function() {
       
       
       function avoidDuplicates(){
-        var i=recentSearchArray.length-1;
+        var i=recentSearchArray.length-2;
         var bandA=recentSearchArray[i].name;
         var bandB;
         var bandC;
@@ -325,7 +325,7 @@ $(document).ready(function() {
         $("#search1").empty()
         $("#search1").append(recentSearchDiv);
         $(recentSearchDiv).append(recentName, recentURL, recentImage, recentUpcoming);
-        for (var p=recentSearchArray.length-1; p>0; p--){
+        for (var p=recentSearchArray.length-2; p>0; p--){
           bandB=recentSearchArray[p].name;
           if (bandA===bandB || bandB===undefined){
             //console.log(bandB + "band b progress")
@@ -346,7 +346,7 @@ $(document).ready(function() {
             
           }
         }
-        for (var t=recentSearchArray.length-1; t>0; t--){
+        for (var t=recentSearchArray.length-2; t>0; t--){
         
           bandC=recentSearchArray[t].name;
           
@@ -384,4 +384,17 @@ $(document).ready(function() {
 
 
   });
+
+  $("#chat-btn").on("click", function(){
+    event.preventDefault();
+    chat = $("#chat-input").val().trim();
+    $("#chat-input").val("")
+    database.ref().update({
+      chat: chat
+    })
+  })
+  
+  database.ref().on("value", function(snapshot) {
+    $("#chat-p").text(snapshot.val().chat);
+  })
 });
