@@ -217,7 +217,7 @@ $(document).ready(function() {
     // Storing the artist name
   
     
-    var inputArtist = $("#artist-input").val().trim();
+    var inputArtist = $("#artist-input-top").val().trim();
     $("#artist-input-top").val("")
 
     // Running the searchBandsInTown function (passing in the artist as an argument)
