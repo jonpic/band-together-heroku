@@ -1,5 +1,5 @@
  // Initialize Firebase
-var config = {
+ var config = {
   apiKey: "AIzaSyBFolyg1FbHvFgQo71r_nypLHaAnBQq_3A",
   authDomain: "band-together-app.firebaseapp.com",
   databaseURL: "https://band-together-app.firebaseio.com",
