@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Band Together</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat+Subrayada|Montserrat:500|Roboto+Condensed" rel="stylesheet">   
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="icon" type="image/png" href="assets/images/BTICON.png">
@@ -27,8 +27,8 @@
             </div>
             <div id="oauth">
             </div>
-            <button class="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button>
-            <button class="btn btn-default" id="obtain-new-band">New Band</button>
+            <!-- <button class="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button>
+            <button class="btn btn-default" id="obtain-new-band">New Band</button> -->
           </div>
         </div>
     
@@ -57,6 +57,7 @@
           <dl class="dl-horizontal">
             <dt>Access token</dt><dd class="">{{access_token}}</dd>
             <dt>Refresh token</dt><dd class="text-overflow">{{refresh_token}}</dd>
+            <a href="/main" class="btn btn-primary">Continue</a>
           </dl>
         </script>
     
@@ -65,7 +66,6 @@
         <script>
           
           (function() {
-            var myToken
             /**
              * Obtains parameters from the hash of the URL
              * @return Object
@@ -80,7 +80,6 @@
               }
               
               return hashParams;
-
             }
     
             var userProfileSource = document.getElementById('user-profile-template').innerHTML,
@@ -95,9 +94,9 @@
     
             var access_token = params.access_token;
             console.log(access_token)
+            localStorage.setItem("token", access_token);
             var refresh_token = params.refresh_token,
                 error = params.error;
-
                 myToken = access_token
                 
         
@@ -149,6 +148,9 @@
                 });
               }, false);
             }
+            app.get('/main', function(req, res) {
+            res.render('main')
+            });
           })();
           
           $("#obtain-new-band").on("click", function(event) {
@@ -167,6 +169,7 @@
                       console.log(response)
                     });
                   });
+                  
         </script>
       </body>
 </html>
