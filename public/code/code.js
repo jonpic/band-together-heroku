@@ -129,7 +129,7 @@ $(document).ready(function() {
 
       database.ref("current").on("value", function(childSnapshot) {
         var currentArtist = Object.values(childSnapshot.val())
-        var mainArtistDiv = $("<div class='bg-dark' id='main-artist-div'>")
+        var mainArtistDiv = $("<div class= id='main-artist-div'>")
         var mainArtistLink = $( ".main-artist-div" ).wrap( "<a href></a>" );
 
       
@@ -224,7 +224,7 @@ $(document).ready(function() {
                   var goToArtist = $("<a>").attr("href", response.url).text("See Tour Dates");
 
                   
-                  var upcomingVenues = $("<a>").attr("href", newResponse[i].url).html("<h3>playing in " + newResponse[i].venue.city + " at the " + venue + " on " + eventDate);
+                  var upcomingVenues = $("<a>").attr("href", newResponse[i].url).html("<h3>Playing in: " + newResponse[i].venue.city + " at the " + venue + " on " + eventDate);
                   
 
                   
@@ -321,7 +321,7 @@ $(document).ready(function() {
         var recentURL = $("<a>").attr("href", recentSearchArray[i].url).append(recentName);
         var recentImage = $("<img>").attr("src", recentSearchArray[i].image);
         var recentUpcoming =  $("<h2>").text(recentSearchArray[i].upcoming + " upcoming events");
-        var recentSearchDiv = $("<div class='bg-dark' id='recent-search-div'>")
+        var recentSearchDiv = $("<div class= id='recent-search-div'>")
         $("#search1").empty()
         $("#search1").append(recentSearchDiv);
         $(recentSearchDiv).append(recentName, recentURL, recentImage, recentUpcoming);
@@ -336,7 +336,7 @@ $(document).ready(function() {
             var recentURL = $("<a>").attr("href", recentSearchArray[p].url).append(recentName);
             var recentImage = $("<img>").attr("src", recentSearchArray[p].image);
             var recentUpcoming =  $("<h2>").text(recentSearchArray[p].upcoming + " upcoming events");
-            var recentSearchDiv = $("<div class='bg-dark' id='recent-search-div'>")
+            var recentSearchDiv = $("<div class='' id='recent-search-div'>")
             $("#search2").empty()
             $("#search2").append(recentSearchDiv);
             $(recentSearchDiv).append(recentName, recentURL, recentImage, recentUpcoming);
@@ -361,7 +361,7 @@ $(document).ready(function() {
             var recentURL = $("<a>").attr("href", recentSearchArray[t].url).append(recentName);
             var recentImage = $("<img>").attr("src", recentSearchArray[t].image);
             var recentUpcoming =  $("<h2>").text(recentSearchArray[t].upcoming + " upcoming events");
-            var recentSearchDiv = $("<div class='bg-dark' id='recent-search-div'>")
+            var recentSearchDiv = $("<div class='' id='recent-search-div'>")
             $("#search3").empty()
             $("#search3").append(recentSearchDiv);
             $(recentSearchDiv).append(recentName, recentURL, recentImage, recentUpcoming);
