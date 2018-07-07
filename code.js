@@ -128,7 +128,7 @@ function searchBandsInTown(artist) {
 
     database.ref("current").on("value", function(childSnapshot) {
       var currentArtist = Object.values(childSnapshot.val())
-      var mainArtistDiv = $("<div class='newEntry animated fadeInLeftBig' id='main-artist-div'>")
+      var mainArtistDiv = $("<div class='newEntry' animated fadeInLeftBig' id='main-artist-div'>")
       var mainArtistLink = $( ".main-artist-div" ).wrap( "<a href></a>" );
 
     
@@ -190,12 +190,13 @@ function searchBandsInTown(artist) {
                 var goToArtist = $("<a>").attr("href", response.url).text("See Tour Dates");
 
                 
-                var upcomingVenues = $("<a>").attr("href", newResponse[i].url).html("<h3>playing in " + newResponse[i].venue.city + " at the " + venue + " on " + eventDate);
+                var upcomingVenues = $("<a class='event-details'>").attr("href", newResponse[i].url).html("<div id='event-details'><h3>Playing in: " + newResponse[i].venue.city + " at the " + venue + 'on'+ eventDate"</div>");
                 
 
                 
 
                 $("#tour-date-holder").append(upcomingVenues);
+               
                 var ticketStatus = $("<h4>").text("tickets are " + newResponse[i].offers[0].status)
                 $("#tour-date-holder").append(ticketStatus);
                   
