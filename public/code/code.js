@@ -11,7 +11,7 @@
 firebase.initializeApp(config);
 
 $(document).ready(function() {
-  console.log("in code")
+  
   var database = firebase.database();
   var access_token = localStorage.getItem("token")
 
@@ -41,8 +41,7 @@ $(document).ready(function() {
 
   var spotifySearch = function(inputArtist) {
     var spotQueryURL = "https://api.spotify.com/v1/search?q=" + inputArtist + "&type=artist&market=us&limit=1";
-    console.log(spotQueryURL + "q1")
-    console.log(access_token)
+    
 
         // Here we run our AJAX call to the OpenWeatherMap API
         $.ajax({
@@ -54,13 +53,13 @@ $(document).ready(function() {
         })
           // We store all of the retrieved data inside of an object called "response"
           .then(function(response) {
-            console.log("made it")
+            
             // Log the queryURL
             bandID = response.artists.items[0].id;
-            console.log(bandID + "band id")
+            
             
             var spotQueryURL2 = "https://api.spotify.com/v1/artists/" + bandID + "/top-tracks?country=us";
-            console.log(spotQueryURL2 + "q2")
+            
             // Log the resulting object
             $.ajax({
                 url: spotQueryURL2,
@@ -76,11 +75,11 @@ $(document).ready(function() {
                   
           
                   // Log the resulting object
-                  console.log(response.tracks[0].preview_url);
+                  
 
                   
                   playerURL = response.tracks[0].preview_url
-                  console.log(playerURL + "here")
+                  
                   database.ref("player").set(playerURL)
                   database.ref("player").on("value", function(childSnapshot) {
                   var updatedPlayer = childSnapshot.val()
@@ -208,7 +207,7 @@ $(document).ready(function() {
                     dbVenue : venue,
                     dbDate : eventDate
                   }
-                  console.log(newResponse)
+                  
                   
                   database.ref("current-dates").push(dateVenue)
 
@@ -280,16 +279,15 @@ $(document).ready(function() {
   database.ref("searches").on("value", function(childSnapshot) {
     childSnapshot.numChildren()
     if (childSnapshot.numChildren() > 3) {
-      console.log(childSnapshot)
+      
       //console.log(childSnapshot.val()[0].name)
     }
 
   //console.log(childSnapshot.val());
-  console.log(Object.values(childSnapshot.val()).length)
-  console.log(Object.values(childSnapshot.val())[0].name)
+  
   //console.log(childSnapshot.val()[0].name)
   recentSearchArray = Object.values(childSnapshot.val())
-  console.log(recentSearchArray[0].name + " array working")
+  
 
   //console.log(Object.values(childSnapshot.val())[0].name)
   // if (recentSearchArray.length > 0){
@@ -312,7 +310,7 @@ $(document).ready(function() {
       
       
       function avoidDuplicates(){
-        var i=recentSearchArray.length-2;
+        var i=recentSearchArray.length-1;
         var bandA=recentSearchArray[i].name;
         var bandB;
         var bandC;
@@ -346,7 +344,7 @@ $(document).ready(function() {
             
           }
         }
-        for (var t=recentSearchArray.length-2; t>0; t--){
+        for (var t=recentSearchArray.length-3; t>0; t--){
         
           bandC=recentSearchArray[t].name;
           

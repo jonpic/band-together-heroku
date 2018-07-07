@@ -340,6 +340,7 @@ hr{
 }
 #recent-search-div{
     background: transparent;
+    color: white;
     font-size:30px;
     float: left;
 }

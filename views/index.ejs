@@ -64,7 +64,7 @@
         </script>
     
         <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.js"></script>
+        <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="code/code2.js"></script>
         <script>
           
@@ -96,7 +96,7 @@
             var params = getHashParams();
     
             var access_token = params.access_token;
-            console.log(access_token)
+            
             localStorage.setItem("token", access_token);
 
             var refresh_token = params.refresh_token,
@@ -108,12 +108,12 @@
               alert('There was an error during the authentication');
             } else {
               if (access_token) {
-                  console.log("here")
+                  
                   $("#login-btn").hide()
                   $("#auth").hide()
                   $("#login-text").text("Thank you for logging in with Spotify. Click 'Continue' to be redirected to Band/Together")
                   
-                console.log(access_token)
+                
 
                 // render oauth info
                 oauthPlaceholder.innerHTML = oauthTemplate({
@@ -127,9 +127,8 @@
                       'Authorization': 'Bearer ' + access_token
                     },
                     success: function(response) {
-                        console.log(header);
-                        console.log(response)
-                      userProfilePlaceholder.innerHTML = userProfileTemplate(response);
+                        
+                      //userProfilePlaceholder.innerHTML = userProfileTemplate(response);
     
                       $('#login').hide();
                       $('#loggedin').show();
