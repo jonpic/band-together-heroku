@@ -71,7 +71,8 @@ app.get('/login', function(req, res) {
 });
 
 app.get('/callback', function(req, res) {
-    
+    console.log(res)
+    console.log("you are in main")
   // your application requests refresh and access tokens
   // after checking the state parameter
 
@@ -104,9 +105,10 @@ app.get('/callback', function(req, res) {
 
         var access_token = body.access_token;
         myToken = access_token
-        
+        console.log("new click")
+        console.log(access_token)
         var refresh_token = body.refresh_token;
-      
+        console.log(refresh_token)
             
         
 
@@ -120,7 +122,8 @@ app.get('/callback', function(req, res) {
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
-          
+          console.log(options);
+          console.log("omg")
         });
 
         // we can also pass the token to the browser to make requests from there
@@ -156,9 +159,9 @@ app.get('/refresh_token', function(req, res) {
   request.post(authOptions, function(error, response, body) {
     if (!error && response.statusCode === 200) {
       var access_token = body.access_token;
-      
+      console.log(body.access_token + "here")
       myToken = access_token
-      
+      console.log(myToken)
       res.send({
         'access_token': access_token
       });
@@ -169,6 +172,7 @@ app.get('/refresh_token', function(req, res) {
 
 
 app.listen(port, function() {
-    
+    console.log('Our app is running on http://localhost:' + port);
+    console.log(myToken)
 });
 
