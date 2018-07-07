@@ -168,7 +168,7 @@ $(document).ready(function() {
                     
                   var goToArtist = $("<a>").attr("href", newResponse.url).text("See Tour Dates");  
                   
-                  var upcomingVenues = $("<a>").attr("href", newResponse[i].url).html("<h3>playing in " + newResponse[i].venue.city + " at the " + venue + " on " + eventDate);
+                  var upcomingVenues = $("<a>").attr("href", newResponse[i].url).html("<h3>Playing in: " + newResponse[i].venue.city + " at the " + venue + " on " + eventDate);
                   $("#tour-date-holder").append(upcomingVenues);
                   
                   var ticketStatus = $("<h4>").text("tickets are " + newResponse[i].offers[0].status)
