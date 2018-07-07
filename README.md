@@ -1,2 +1,2 @@
 # band-together-heroku
-heroku app
+## repository for band/together app
