@@ -188,56 +188,8 @@ $(document).ready(function() {
       
       
       
-      // Carter starting here
-      if (response.upcoming_event_count > 0) {
-          var newQueryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=band_together";
-          $.ajax({
-              url: newQueryURL,
-              method: "GET"
-          }).then(function(newResponse){
-
-              for (var i = 0; i < 5; i++){
-                  
-                  var eventDate = newResponse[i].datetime;
-                  
-                  eventDate = moment(eventDate).format("MMMM DD YYYY, h:mm a");
-                  
-                  var venue = newResponse[i].venue.name;
-                  var dateVenue = {
-                    dbVenue : venue,
-                    dbDate : eventDate
-                  }
-                  
-                  
-                  database.ref("current-dates").push(dateVenue)
-
-                  
-                  //console.log(newResponse[i].url)
-                  database.ref("current-dates").on("value", function(childSnapshot) {
-                    var currentDates = Object.values(childSnapshot.val())
-                  
-
-                  
-                  });
-
-                  var goToArtist = $("<a>").attr("href", response.url).text("See Tour Dates");
-
-                  
-                  var upcomingVenues = $("<a>").attr("href", newResponse[i].url).html("<h3>Playing in: " + newResponse[i].venue.city + " at the " + venue + " on " + eventDate);
-                  
-
-                  
-
-                  $("#tour-date-holder").append(upcomingVenues);
-                  var ticketStatus = $("<h4>").text("tickets are " + newResponse[i].offers[0].status)
-                  $("#tour-date-holder").append(ticketStatus);
-                    
-                  
-
-
-              }
-          })
-      }
+      
+    
     });
   }
 
@@ -319,13 +271,14 @@ $(document).ready(function() {
         var recentURL = $("<a>").attr("href", recentSearchArray[i].url).append(recentName);
         var recentImage = $("<img>").attr("src", recentSearchArray[i].image);
         var recentUpcoming =  $("<h2>").text(recentSearchArray[i].upcoming + " upcoming events");
-        var recentSearchDiv = $("<div class= id='recent-search-div'>")
+        var recentSearchDiv = $("<div class='' id='recent-search-div'>")
         $("#search1").empty()
         $("#search1").append(recentSearchDiv);
         $(recentSearchDiv).append(recentName, recentURL, recentImage, recentUpcoming);
         for (var p=recentSearchArray.length-2; p>0; p--){
           bandB=recentSearchArray[p].name;
           if (bandA===bandB || bandB===undefined){
+            console.log("here at band")
             //console.log(bandB + "band b progress")
           }else {
             //console.log(bandB+" band b");
